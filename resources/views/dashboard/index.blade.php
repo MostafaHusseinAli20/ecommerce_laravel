@@ -37,7 +37,7 @@
                   <div class="icon">
                     <i class="fa-solid fa-user-plus"></i>
                 </div>
-                  <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                  <a href="{{ route('admin.index') }}" class="small-box-footer">عرض المزيد <i class="fa fa-arrow-circle-left"></i></a>
                 </div>
                 
               </div>
@@ -53,7 +53,7 @@
                   <div class="icon">
                     <i class="fa fa-user-plus"></i>
                   </div>
-                  <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                  <a href="#" class="small-box-footer">عرض المزيد <i class="fa fa-arrow-circle-left"></i></a>
                 </div>
               </div>
 
@@ -68,7 +68,7 @@
                   <div class="icon">
                     <i class="fa fa-shopping-cart"></i>
                   </div>
-                  <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                  <a href="{{ route('orders.index') }}" class="small-box-footer">عرض المزيد <i class="fa fa-arrow-circle-left"></i></a>
                 </div>
               </div>
 
@@ -83,7 +83,7 @@
                   <div class="icon">
                     <i class="fa fa-product-hunt"></i>
                   </div>
-                  <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                  <a href="{{ route('products.index') }}" class="small-box-footer">عرض المزيد <i class="fa fa-arrow-circle-left"></i></a>
                 </div>
               </div>
 

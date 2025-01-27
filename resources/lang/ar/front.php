@@ -20,4 +20,14 @@ return [
     'All_Prices'=> 'كل الاسعار',
     'Quick_View'=> 'عرض سريع',
     'View_Cart'=> 'عرض السلة',
+    'size_cart'=>"لم يحدد المقاس",
+    'color_cart'=>"لم يحدد اللون",
+    'Update_Cart' => 'تحديث السلة',
+    'order_status' => [
+        'pending' => 'معلق',
+        'shipping' => 'تم الشحن',
+        'rejected' => 'مرفوض',
+        'delivered' => 'تم الاستلام',
+        'closed' => 'طلب مغلق'
+    ]
 ];

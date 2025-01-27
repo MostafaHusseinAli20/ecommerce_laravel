@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Categories\CategoryController;
 use App\Http\Controllers\Admin\Categories\CategorySizesController;
+use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductColorController;
 use App\Http\Controllers\Admin\Products\ProductController;
 use App\Http\Controllers\Admin\Products\ProductImagesController;
@@ -22,3 +23,4 @@ Route::resource('props', ProductPropsController::class);
 Route::resource('product_images', ProductImagesController::class);
 Route::resource('sliders', SliderController::class);
 Route::resource('product_colors', ProductColorController::class);
+Route::resource('orders', OrderController::class)->only('index', 'show', 'update');

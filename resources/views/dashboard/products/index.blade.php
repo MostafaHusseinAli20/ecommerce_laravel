@@ -34,7 +34,6 @@
             <th>#</th>
             <th>العنوان بالعربي</th>
             <th>العنوان بالأنجليزي</th>
-            <th>كمية</th>
             <th>سعر</th>
             <th>القسم</th>
             <th>صورة</th>
@@ -50,11 +49,14 @@
               <td>{{$i++}}</td>
               <td>{{$product->title_ar}}</td>
               <td>{{$product->title_en}}</td>
-              <td>{{$product->quantity}}</td>
               <td>{{$product->price}}</td>
-              <td><a href="{{route('categories.index', ['category_id'=>$product->category->id])}}">
+
+              <td>
+                <a href="{{route('categories.index', ['category_id'=>$product->category->id])}}">
                 {{$product->category->title_ar}} - {{$product->category->title_en}}  
-              </a></td>
+              </a>
+            </td>
+
               <td>
                 @if ($product->main_image)
                     <img width="50px" src="{{asset("storage/$product->main_image")}}" alt="">
@@ -62,6 +64,7 @@
                     بدون صورة
                 @endif
               </td>
+
               <td>
                 <a href="{{route('products.edit', $product->id)}}"><button class="btn btn-sm btn-info">تعديل</button></a>
                 <button form="delete{{$product->id}}" class="btn btn-sm btn-danger">حذف</button>
@@ -70,6 +73,7 @@
                   @method('delete')
                 </form>
               </td>
+              
             </tr>
             @empty
               <tr>

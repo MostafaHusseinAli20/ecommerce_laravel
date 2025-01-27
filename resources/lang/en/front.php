@@ -20,4 +20,14 @@ return [
     'All_Prices'=> 'All Prices',
     'Quick_View'=> 'Quick View',
     'View_Cart'=> 'View Cart',
+    'size_cart'=>"Size not specified",
+    'color_cart' => 'Color not specified',
+    'Update_Cart' => 'Update Cart',
+    'order_status' => [
+        'pending' => 'pending',
+        'shipping' => 'shipping',
+        'rejected' => 'rejected',
+        'delivered' => 'delivered',
+        'closed' => 'closed'
+    ]
 ];

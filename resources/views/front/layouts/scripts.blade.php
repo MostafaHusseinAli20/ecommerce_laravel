@@ -11,7 +11,7 @@
 <!--===============================================================================================-->
 	<script src="{{asset('front/vendor/bootstrap/js/popper.js')}}"></script>
 	<script src="{{asset('front/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="{{asset('front/vendor/select2/select2.min.js')}}"></script>
 	<script>
 		$(".js-select2").each(function(){

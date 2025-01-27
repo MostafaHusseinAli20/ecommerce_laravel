@@ -27,22 +27,50 @@ if(!function_exists('filterActiveClass')){
     }
 }
 
-if(!function_exists('carts')){
-    function carts($newItem = null){
-        if($newItem and $newItem['product'] and $newItem['quantity']){
+if (!function_exists('carts')) {
+    function carts($newItem = null, $size = null, $color = null) {
+        
+        if ($newItem and $newItem['product'] and $newItem['quantity']) {
             $carts = carts();
-            $search = $carts->search(function ($item) use ($newItem) {
-            return $item->product->id == $newItem['product']->id;
+            $search = $carts->search(function ($item) use ($newItem, $size, $color) {
+                $con = $item->product->id == $newItem['product']->id;
+
+                if (isset($item->size))
+                    $sameSize = $item->size == $size;
+                else{
+                    $sameSize = null == $size;
+                }
+                if (isset($item->color))
+                    $sameColor = $item->color == $color;
+                else{
+                    $sameColor = null == $color;
+                }
+                return $con and $sameColor and $sameSize;
+            });
+
+            if ($search !== false){
+              $carts[$search]->quantity += $newItem['quantity'];
+            }
+            else{
+                $newItem['color'] = $color;
+                $newItem['size'] = $size;
+                if (auth()->check())
+                    $newItem['user_id'] = auth()->id();
+                $carts->push($newItem);
+            }
+
+            session(['carts_' . auth()->id() => json_encode($carts)]);
+        } else {
+            $temp = json_decode(session('carts_' . auth()->id(),'[]'));
+            return auth()->check() ? collect($temp)->where('user_id', auth()->id()) : collect($temp)->where('user_id', null);
+        }
+    }
+}
+
+if(! function_exists('cartsTotal')){
+    function cartsTotal() {
+        return carts()->sum(function ($item) {
+            return $item->product->price * $item->quantity;
         });
-        if($search !== false) {
-            $carts[$search]->quantity += $newItem['quantity'];    
-        }else{                      
-            $carts->push($newItem);
-        }
-        session(['carts'=>json_encode($carts)]);
-        }else{
-            $temp = json_decode(session('carts', '[]'));
-            return collect($temp);
-        }
     }
 }

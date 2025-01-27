@@ -73,12 +73,19 @@
                                             @endif
 
                                             <div class="flex-w flex-r-m p-b-10">
+                                                @if (auth()->check())
                                                 <div class="size-204 flex-w flex-m respon6-next">
 
                                                     <a href="{{ route('front.cart.store', ['product_id'=>$product->id,'quantity'=>1]) }}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                                         Add to cart
                                                     </a>
                                                 </div>
+                                                @else
+                                                <h6 class="mt-3">Becuse Buy This Product Go To <a href="{{ url('loginPage') }}" 
+                                                    class="text-primary"
+                                                    style="text-decoration: underline">
+                                                    Login</a> Page First</h6>
+                                                @endif
                                             </div>
                                         </div>
                                     </form>

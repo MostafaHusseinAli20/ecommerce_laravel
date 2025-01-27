@@ -65,12 +65,29 @@
                             <a href="{{ app()->getLocale() == 'ar' ? url('local?local=en') : url('local?local=ar') }}">
                                 {{ app()->getLocale() == 'ar' ? 'English' : 'العربية' }}
                             </a>
-                        </li>       
+                        </li>
+
                     </ul>
                 </div>	
 
                 <!-- Icon header -->
                 <div class="wrap-icon-header flex-w flex-r-m">
+                    <div class="wrap-icon-header flex-w flex-r-m">
+                        
+                        @auth
+                            <a href="{{ url('/logout') }}" class="btn btn-danger">
+                                <i class="fa fa-user mr-2"></i> Logout
+                            </a>
+                        @else
+                            <a href="{{ url('/loginPage') }}" type="button" class="btn text-dark">
+                                <i class="fa fa-user"></i> Login
+                            </a>
+
+                            <a href="{{ url('/registerPage') }}" type="button" class="btn text-dark">
+                                <i class="fa fa-user"></i> Register
+                            </a>
+                        @endauth
+
                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                         <i class="zmdi zmdi-search"></i>
                     </div>
@@ -79,9 +96,16 @@
                         <i class="zmdi zmdi-shopping-cart"></i>
                     </div>
 
-                    <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+                    {{-- <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
                         <i class="zmdi zmdi-favorite-outline"></i>
-                    </a>
+                    </a> --}}
+
+                    @auth
+                        <a href="{{ url('/my_orders') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10">
+                            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                        </a>
+                    @endauth
+                
                 </div>
             </nav>
         </div>	
@@ -166,7 +190,7 @@
                             <i class="zmdi zmdi-search"></i>
                         </div>
 
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{ carts()->count() }}">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
 
@@ -192,13 +216,14 @@
                 <i class="zmdi zmdi-search"></i>
             </div>
 
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="{{ carts()->count() }}">
                 <i class="zmdi zmdi-shopping-cart"></i>
             </div>
 
             <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
                 <i class="zmdi zmdi-favorite-outline"></i>
             </a>
+
         </div>
 
         <!-- Button show menu -->
@@ -283,3 +308,14 @@
         </div>
     </div>
 </header>
+
+
+{{-- 
+@if ($errors->any())
+    <div class="alert alert-danger" style="margin-top: 10rem">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li class="text-right text-danger">{{ $error }}</li>
+            @endforeach
+        </ul>
+@endif --}}
