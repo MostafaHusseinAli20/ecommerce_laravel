@@ -8,25 +8,33 @@ use Illuminate\Http\Request;
 
 class OrderFrontController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $orders = auth()->user()->orders()->paginate(10);
         return view("front.orders.index", compact("orders"));
     }
-    
-    public function store(Request $request){
+
+    public function orderTrack()
+    {
+       $orders = auth()->user()->orders()->get();
+        return view("front.orders.track", compact("orders"));
+    }
+
+    public function store(Request $request)
+    {
         $this->validate($request, [
-            'full_adreess' => 'required',
+            'full_address' => 'required',
             'full_name' => 'required',
             'phone' => 'required',
             'email' => 'required',
         ]);
-        $request->merge(['full_adreess' => implode(', ', $request->input('full_adreess'))]);
+        $request->merge(['full_address' => implode(', ', $request->input('full_address'))]);
         $data = $request->except('_token');
         $data['sub_total'] = cartsTotal();
         $data['total'] = cartsTotal();
         $order = Order::create($data);
 
-        foreach(carts() as $item){
+        foreach (carts() as $item) {
             $order->items()->create([
                 'product_id' => $item->product->id,
                 'product_name' => app()->getLocale() == 'en' ? $item->product->title_en : $item->product->title_ar,
@@ -39,7 +47,12 @@ class OrderFrontController extends Controller
         }
 
         session()->forget('carts_' . auth()->id());
+        $order->tracks()->create([
+            'status' => $request->status,
+            'message' => 'order submitted successfully',
+            //$request->status_notes ?? ('new order status is '.request('status')),
+        ]);
 
-        return back()->with('success','تم ارسال الطلب بنجاح');
+        return back()->with('success', 'تم ارسال الطلب بنجاح');
     }
 }

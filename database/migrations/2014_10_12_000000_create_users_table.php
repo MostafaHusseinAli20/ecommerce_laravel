@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email_valid')->default(0);
             $table->string('phone_valid')->default(0);
             $table->string('phone');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

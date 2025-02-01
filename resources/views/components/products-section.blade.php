@@ -8,7 +8,7 @@
         </div>
 
         <div class="flex-w flex-sb-m p-b-52">
-            @if($sectionCategory == null)
+           
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                 <a href="{{ url()->current() }}" class="{{ filterActiveClass('how-active1', 'category_id') }} stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                     @lang('front.All Products')
@@ -24,7 +24,6 @@
                 @include('front.parts.search_filter')
 
         </div>
-        @endif
 
         <div class="row isotope-grid">
             @forelse ($products as $index => $product)

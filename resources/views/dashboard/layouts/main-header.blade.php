@@ -23,64 +23,50 @@
     </form>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto align-items-center">
+      <!-- Logout -->
+      <li class="">
+        <a href="{{ route('admin.logout') }}" class="btn btn-danger btn-sm btn ml-2">
+          <i class="fa fa-user ml-2"></i> خروج
+        </a>
+      </li>
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        
+        <a class="nav-link" data-toggle="dropdown" href="contact">
           <i class="fa fa-comments-o"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
+          <span class="badge badge-danger navbar-badge">{{ \App\Models\Contact::count() }}</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="{{asset('admin_dashboard/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 ml-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  محمدرضا عطوان
-                  <span class="float-left text-sm text-danger"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">با من تماس بگیر لطفا...</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 ساعت قبل</p>
-              </div>
+        
+        @if (\App\Models\Contact::count() > 0)
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
+
+            @foreach (\App\Models\Contact::all() as $item)
+              <a href="{{ route('contact.show', $item->id )}}" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      {{ $item->name }}
+                      <span class="float-left text-sm text-danger"><i class="fa fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">{{ $item->subject }}</p>
+                    <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> {{ $item->created_at->format('Y-m-d') }} قبل</p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              @endforeach
+
+              <div class="dropdown-divider"></div>
+              
+              <form action="{{ route('contact.destroyAll') }}" method="POST">
+                @csrf
+                @method('post')
+                <button class="dropdown-item dropdown-footer">حذف جميع الرسائل</button>
+              </form>
             </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle ml-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  پیمان احمدی
-                  <span class="float-left text-sm text-muted"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">من پیامتو دریافت کردم</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 ساعت قبل</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle ml-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  سارا وکیلی
-                  <span class="float-left text-sm text-warning"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">پروژه اتون عالی بود مرسی واقعا</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i>4 ساعت قبل</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">مشاهده همه پیام‌ها</a>
-        </div>
+          @endif
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">

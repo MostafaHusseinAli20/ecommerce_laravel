@@ -10,7 +10,8 @@
                 <ul>
                     @foreach (\App\Models\Category::all() as $category)
                         <li class="p-b-10">
-                            <a href="{{ route('front.category.show', $category) }}" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a href="{{ route('front.category.show', $category) }}"
+                                class="stext-107 cl7 hov-cl1 trans-04">
                                 {{ $category->title }}
                             </a>
                         </li>
@@ -25,14 +26,20 @@
 
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Track Order
-                        </a>
+                        @auth
+                            <a href="{{ url('order_track') }}" class="stext-107 cl7 hov-cl1 trans-04">
+                                Track Order
+                            </a>
+                        @else
+                            <a href="{{ url('loginPage') }}" class="stext-107 cl7 hov-cl1 trans-04">
+                                Track Order
+                            </a>
+                        @endauth
                     </li>
 
                     <li class="p-b-10">
                         <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Returns 
+                            Returns
                         </a>
                     </li>
 
@@ -56,7 +63,8 @@
                 </h4>
 
                 <p class="stext-107 cl7 size-201">
-                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on
+                    (+1) 96 716 6879
                 </p>
 
                 <div class="p-t-27">
@@ -81,7 +89,8 @@
 
                 <form>
                     <div class="wrap-input1 w-full p-b-4">
-                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
+                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
+                            placeholder="email@example.com">
                         <div class="focus-input1 trans-04"></div>
                     </div>
 
@@ -119,9 +128,14 @@
 
             <p class="stext-107 cl6 txt-center">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://github.com/MostafaHusseinAli20" target="_blank">Mostafa Hussein</a>. 
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                    aria-hidden="true"></i> by <a href="https://github.com/MostafaHusseinAli20" target="_blank">Mostafa
+                    Hussein</a>.
 
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
             </p>
         </div>

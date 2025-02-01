@@ -3,9 +3,11 @@
 use App\Http\Controllers\Front\Auth\AuthController;
 use App\Http\Controllers\Front\Carts\CartController;
 use App\Http\Controllers\Front\Categories\CategoryFrontController;
+use App\Http\Controllers\Front\Contact\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Home\HomeController;
 use App\Http\Controllers\Front\Orders\OrderFrontController;
+use App\Http\Controllers\Front\Products\ProductFrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,31 +24,33 @@ use App\Http\Controllers\Front\Orders\OrderFrontController;
 
 Route::get('/', [HomeController::class, 'index'])->name('front.products.index');
 
-
-Route::get('/dashboard', function() {
-    return view('dashboard.index');
-});
-
-Route::get('local',function (){
-    session(['local'=>request('local')]);
+Route::get('local', function () {
+    session(['local' => request('local')]);
     return redirect('/');
 });
 
 Route::get('/category/{category}', [CategoryFrontController::class, 'show'])->name('front.category.show');
-Route::get('/cart', [CartController::class,'index'])->name('front.cart.index');
+Route::get('/cart', [CartController::class, 'index'])->name('front.cart.index');
 Route::post('/checkout', [OrderFrontController::class, 'store']);
+
+# Contact Routes
+Route::view('contact', 'front.contact.index');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
 # Auth Routes
 Route::view('/registerPage', 'front.auth.register');
 Route::view('/loginPage', 'front.auth.login');
-Route::post('/register', [AuthController::class,'register'])->name('register');
-Route::post('/login', [AuthController::class,'login'])->name('login');
-Route::get('/logout', [AuthController::class,'logout']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/productDetail/{id}', [ProductFrontController::class, 'show'])->name('front.products.show');
 
-Route::middleware('auth')->group(function (){
+Route::middleware('auth')->group(function () {
     Route::get('/my_orders', [OrderFrontController::class, 'index'])->name('front.orders.index');
-    Route::get('/cart/{product_id}/q/{quantity}/store', [CartController::class,'store'])->name('front.cart.store');
-    Route::get('/cart/remove/{index}', [CartController::class,'destroy'])->name('front.cart.destroy');
+    Route::get('/order_track', [OrderFrontController::class, 'orderTrack']);
+    Route::get('/cart/{product_id}/q/{quantity}/store', [CartController::class, 'store'])->name('front.cart.store');
+    Route::get('/cart/remove/{index}', [CartController::class, 'destroy'])->name('front.cart.destroy');
     Route::post('/cart/update', [CartController::class, 'update'])->name('front.cart.update');
 });
 
+Route::redirect('/dashboard', '/dashboard/index');

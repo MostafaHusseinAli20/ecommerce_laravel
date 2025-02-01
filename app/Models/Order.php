@@ -14,6 +14,10 @@ class Order extends Model
         return $this->hasMany(Order_Item::class, "order_id", 'id');
     }
 
+    public function tracks(){
+        return $this->hasMany(OrderTrack::class, "order_id", 'id');
+    }
+
     public function getDateAttribute(){
         return date('Y-m-d', strtotime($this->created_at));
     }

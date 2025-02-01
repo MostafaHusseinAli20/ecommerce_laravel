@@ -148,18 +148,18 @@
 										</div>
 	
 										<div class="bor8 bg0 m-b-12">
-											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="full_adreess[]" placeholder="Country"
-											value="{{ auth()->user()->full_adreess }}" required>
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="full_address[]" placeholder="Country"
+											value="{{ auth()->user()->full_address }}" required>
 										</div>
 	
 										<div class="bor8 bg0 m-b-22">
-											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="full_adreess[]" placeholder="State"
-											value="{{ auth()->user()->full_adreess }}" required>
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="full_address[]" placeholder="State"
+											value="{{ auth()->user()->full_address }}" required>
 										</div>
 
 										<div class="bor8 bg0 m-b-22">
-											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="full_adreess[]" 
-											value="{{ auth()->user()->full_adreess }}" placeholder="Postcode / Zip" required>
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="full_address[]" 
+											value="{{ auth()->user()->full_address }}" placeholder="Postcode / Zip" required>
 										</div>
 										
 									</div>

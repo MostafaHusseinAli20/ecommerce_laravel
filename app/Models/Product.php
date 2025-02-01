@@ -14,6 +14,10 @@ class Product extends Model
         return app()->getLocale() == 'en' ? $this->title_en : $this->title_ar;
     }
 
+    public function getDescriptionAttribute(){
+        return app()->getLocale() == 'en' ? $this->description_en : $this->description_ar;
+    }
+
     public function category(){
         return $this->belongsTo(Category::class,'category_id','id');
     }

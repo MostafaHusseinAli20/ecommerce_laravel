@@ -3,7 +3,7 @@
 @section('content')
 <div class="container" style="margin-top: 150px; margin-bottom: 150px;">
     <div class="row">
-        <form action="{{ route('register') }}" method="POST" class="col-md-6 offset-md-3 mx-auto">
+        <form action="{{ url('register') }}" method="POST" class="col-md-6 offset-md-3 mx-auto">
             @csrf
             <div class="form-group">
                 <label for="name">
