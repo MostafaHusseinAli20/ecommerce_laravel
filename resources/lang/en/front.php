@@ -29,5 +29,6 @@ return [
         'rejected' => 'rejected',
         'delivered' => 'delivered',
         'closed' => 'closed'
-    ]
+    ],
+    'add_order' => 'New order added',
 ];

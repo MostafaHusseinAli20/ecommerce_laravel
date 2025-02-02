@@ -10,7 +10,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>عدد العناصر</th>
+                                <th>الحالة</th>
                                 <th>الرسالة</th>
                             </tr>
                         </thead>
@@ -21,7 +21,7 @@
                             @foreach ($orders as $order)
                                 @forelse ($order->tracks as $track)
                                     <tr>
-                                        <td>{{ $track->status ?? 'Null' }}</td>
+                                        <td>{{ $track->status ?? 'Undefined' }}</td>
                                         <td>{{ $track->message }}</td>
                                     </tr>
                                 @empty

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front\Orders;
 
 use App\Http\Controllers\Controller;
+use App\Models\Noftification;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,12 @@ class OrderFrontController extends Controller
             'status' => $request->status,
             'message' => 'order submitted successfully',
             //$request->status_notes ?? ('new order status is '.request('status')),
+        ]);
+
+
+        Noftification::create([
+            'order_id'=> $order->id,
+            'title' => 'New Adedd Order',
         ]);
 
         return back()->with('success', 'تم ارسال الطلب بنجاح');

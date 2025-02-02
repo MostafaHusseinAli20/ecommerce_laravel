@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\Categories\CategoryController;
 use App\Http\Controllers\Admin\Categories\CategorySizesController;
 use App\Http\Controllers\Admin\Contact\AdminContactController;
+use App\Http\Controllers\Admin\Noftifications\NoftificationController;
 use App\Http\Controllers\Admin\Orders\OrderController;
 use App\Http\Controllers\Admin\Products\ProductColorController;
 use App\Http\Controllers\Admin\Products\ProductController;
@@ -37,4 +38,6 @@ Route::middleware('admin')->group(function () {
     Route::get('/contact/show/{id}', [AdminContactController::class,'show'])->name('contact.show');
     Route::delete('/contact/destroy/{id}', [AdminContactController::class,'destroy'])->name('contact.destroy');
     Route::post('/contact/destroy/all', [AdminContactController::class, 'destroyAll'])->name('contact.destroyAll');
+    Route::delete('noftification/delete/{id}', [NoftificationController::class, 'destroy'])->name('notification.destroy');
+    Route::delete('/notifications/soft-delete-all', [NoftificationController::class, 'softDeleteAll'])->name('notifications.soft-delete-all');
 });
