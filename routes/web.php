@@ -33,8 +33,8 @@ Route::get('local', function () {
 
 Route::get('/category/{category}', [CategoryFrontController::class, 'show'])->name('front.category.show');
 Route::get('/cart', [CartController::class, 'index'])->name('front.cart.index');
-// Route::post('/checkout', [OrderFrontController::class, 'store']);
-Route::post('/charge', [PaymentController::class, 'charge']);
+Route::post('/checkout', [OrderFrontController::class, 'store']);
+// Route::post('/charge', [PaymentController::class, 'charge']);
 
 # Contact Routes
 Route::view('contact', 'front.contact.index');

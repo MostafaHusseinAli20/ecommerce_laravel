@@ -93,7 +93,7 @@
 
     @if (carts()->count() > 0)
         <div class="col-sm-10 col-lg-7 col-xl-5 m-b-50">
-            {{-- <form action="{{ url('checkout') }}" method="POST">
+            <form action="{{ url('checkout') }}" method="POST">
 						@csrf
 
 						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
@@ -187,13 +187,13 @@
 								Proceed to Checkout
 							</button>
 						</div>
-					</form> --}}
+					</form>
 
-            <form class="form-group" id="payment-form">
+            {{-- <form class="form-group" id="payment-form">
                 <input class="form-control" type="text" id="card-holder-name" placeholder="Cardholder Name" required>
                 <div class="form-control" id="card-element"></div>
                 <button class="form-control" id="card-button">Pay</button>
-            </form>
+            </form> --}}
 
         </div>
     @else
