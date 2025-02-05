@@ -89,7 +89,7 @@ class ProductController extends Controller
         ]);
 
         $data = $request->except('_token', 'main_image', 'tags', 'sizes',
-        'key_ar', 'key_en', 'value_ar', 'value_en', 'color_ar', 'color_en', 'product_id','path');
+        'key_ar', 'key_en', 'value_ar', 'value_en', 'color_ar', 'color_en', 'product_id', 'image');
 
         $product = Product::find($id);
 

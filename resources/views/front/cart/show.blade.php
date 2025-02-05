@@ -1,98 +1,101 @@
 @extends('front.layouts.master')
 @section('title', 'Cart')
 @section('content')
-     <!-- Shoping Cart -->
-	<form method="POST" action="{{ route('front.cart.update') }}" class="bg0 p-t-75 p-b-85" style="margin-top: 7rem">
-		@csrf
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-					<div class="m-l-25 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart">
-							<table class="table-shopping-cart">
+    <!-- Shoping Cart -->
+    <form method="POST" action="{{ route('front.cart.update') }}" class="bg0 p-t-75 p-b-85" style="margin-top: 7rem">
+        @csrf
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                    <div class="m-l-25 m-r--38 m-lr-0-xl">
+                        <div class="wrap-table-shopping-cart mr-5">
+                            <table class="table-shopping-cart">
 
-								<tr class="table_head">
+                                <tr class="table_head">
                                     <th class="column-1"></th>
-									<th class="column-1">Product</th>
-									<th class="column-2"></th>
-									<th class="column-3">Price</th>
-									<th class="column-4">Quantity</th>
-									<th class="column-5">Total</th>
-								</tr>
+                                    <th class="column-1">Product</th>
+                                    <th class="column-2"></th>
+                                    <th class="column-3">Price</th>
+                                    <th class="column-4">Quantity</th>
+                                    <th class="column-5">Total</th>
+                                </tr>
 
-									@forelse (carts() as $index => $item)
-                                        <tr class="table_row">
-                                            <td class="text-center">
-                                                <a href="{{ route('front.cart.destroy', $index) }}" class="btn btn-sm btn-danger">
-													<i class="fa fa-trash"></i>
-												</a>
-                                            </td>
-                                            <td class="column-1">
-                                                <div class="how-itemcart1">
-                                                    <img src="{{ asset('storage/' . $item->product->main_image) }}" alt="IMG">
-                                                </div>
-                                            </td>
-                                            <td class="column-2">{{ \App\Models\Product::query()->find($item->product->id)->title }}
-												<br>
-												<span
-                                                class="font-weight-bold text-primary">{{$item->size ?? __('front.size_cart')}}</span><br>
+                                @forelse (carts() as $index => $item)
+                                    <tr class="table_row">
+                                        <td class="text-center">
+                                            <a href="{{ route('front.cart.destroy', $index) }}"
+                                                class="btn btn-sm btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                        <td class="column-1">
+                                            <div class="how-itemcart1">
+                                                <img src="{{ asset('storage/' . $item->product->main_image) }}"
+                                                    alt="IMG">
+                                            </div>
+                                        </td>
+                                        <td class="column-2">
+                                            {{ \App\Models\Product::query()->find($item->product->id)->title }}
+                                            <br>
                                             <span
-                                                class="font-weight-bold text-success">{{$item->color ?? __('front.color_cart')}}</span>
-											</td>
-                                        
-											<td class="column-3">L.E {{ $item->product->price }}</td>
-											
-                                            <td class="column-4">
-                                                <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                        <i class="fs-16 zmdi zmdi-minus"></i>
-                                                    </div>
+                                                class="font-weight-bold text-primary">{{ $item->size ?? __('front.size_cart') }}</span><br>
+                                            <span
+                                                class="font-weight-bold text-success">{{ $item->color ?? __('front.color_cart') }}</span>
+                                        </td>
 
-                                                    <input class="mtext-104 cl3 txt-center num-product" type="number" 
-													name="quantity[{{$index}}]" 
-													value="{{ $item->quantity }}">
+                                        <td class="column-3">L.E {{ $item->product->price }}</td>
 
-                                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                        <i class="fs-16 zmdi zmdi-plus"></i>
-                                                    </div>
+                                        <td class="column-4">
+                                            <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                    <i class="fs-16 zmdi zmdi-minus"></i>
                                                 </div>
-                                            </td>
 
-                                            <td class="column-5">
-												L.E {{ $item->quantity * $item->product->price }}
-											</td>
-                                        
-										</tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="1000">
-                                                <h4 class="w-100 text-center p-2">
-                                                    لايوجد بيانات
-                                                </h4>
-                                            </td>
-                                        </tr>        
-                                    @endforelse
-							</table>
-						</div>
+                                                <input class="mtext-104 cl3 txt-center num-product" type="number"
+                                                    name="quantity[{{ $index }}]" value="{{ $item->quantity }}">
 
-						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-							
-							@if (carts()->count() > 0)
-							<button class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-								@lang('front.Update_Cart')
-							</button>
-							@else
-							
-							@endif
-						</div>
-					</div>
-				</form>
-				</div>
+                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                    <i class="fs-16 zmdi zmdi-plus"></i>
+                                                </div>
+                                            </div>
+                                        </td>
 
-				@if (carts()->count() > 0)
-				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-					<form action="{{ url('checkout') }}" method="POST">
+                                        <td class="column-5">
+                                            L.E {{ $item->quantity * $item->product->price }}
+                                        </td>
+
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="1000">
+                                            <h4 class="w-100 text-center p-2">
+                                                لايوجد بيانات
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </table>
+                        </div>
+
+                        <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+
+                            @if (carts()->count() > 0)
+                                <button
+                                    class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+                                    @lang('front.Update_Cart')
+                                </button>
+                            @else
+                            @endif
+                        </div>
+                    </div>
+    </form>
+    </div>
+
+    @if (carts()->count() > 0)
+        <div class="col-sm-10 col-lg-7 col-xl-5 m-b-50">
+            {{-- <form action="{{ url('checkout') }}" method="POST">
 						@csrf
+
 						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
 							<h4 class="mtext-109 cl2 p-b-30">
 								Cart Totals
@@ -184,13 +187,54 @@
 								Proceed to Checkout
 							</button>
 						</div>
-					</form>
-				</div>
-				@else
+					</form> --}}
 
-				@endif
-			</div>
-		</div>
-	
+            <form class="form-group" id="payment-form">
+                <input class="form-control" type="text" id="card-holder-name" placeholder="Cardholder Name" required>
+                <div class="form-control" id="card-element"></div>
+                <button class="form-control" id="card-button">Pay</button>
+            </form>
 
+        </div>
+    @else
+    @endif
+    </div>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe(
+            "pk_test_51Px6QsRuWpm79K01NwbbHUKxOiZnn8Z5W4Itm3HnFzrDq0D8FznZfJ791H4DeYBMLVPxEtErzeN5wPYeozeVK2v700L5JRqUS2"
+        );
+        const elements = stripe.elements();
+        const cardElement = elements.create("card");
+        cardElement.mount("#card-element");
+
+        document.getElementById("payment-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const {
+                token,
+                error
+            } = await stripe.createToken(cardElement);
+
+            if (error) {
+                alert(error.message);
+            } else {
+                fetch("/charge", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            card_token: token.id,
+                            amount: 50 // قيمة الدفع بالدولار
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error("Error:", error));
+            }
+        });
+    </script>
 @endsection

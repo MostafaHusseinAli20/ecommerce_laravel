@@ -31,4 +31,5 @@ return [
         'closed' => 'closed'
     ],
     'add_order' => 'New order added',
+    'message_added_succssfuly'   => 'Message Added Succssfuly'
 ];

@@ -95,7 +95,7 @@
 
               @endforeach
               <div class="dropdown-divider"></div>
-              <button form="softDelete" class="dropdown-item dropdown-footer">حذف جميع الرسائل</button>
+              <button form="softDelete" class="dropdown-item dropdown-footer">قراءة الجميع</button>
               <form method="POST" id="softDelete" action="{{ route('notifications.soft-delete-all') }}">
                 @csrf
                 @method('DELETE')

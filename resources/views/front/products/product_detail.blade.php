@@ -131,6 +131,7 @@
                                             Add to cart
                                         </a>
                                     @endauth
+
                                 </div>
                             </div>
                         </div>
@@ -179,7 +180,8 @@
                         </li>
 
                         <li class="nav-item p-b-10">
-                            <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+                            <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews
+                                ({{ \App\Models\ProductFeedback::count() }})</a>
                         </li>
                     </ul>
 
@@ -243,81 +245,155 @@
                                     <div class="p-b-30 m-lr-15-sm">
                                         <!-- Review -->
                                         <div class="flex-w flex-t p-b-68">
-                                            <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                                <img src="images/avatar-01.jpg" alt="AVATAR">
-                                            </div>
 
-                                            <div class="size-207">
-                                                <div class="flex-w flex-sb-m p-b-17">
-                                                    <span class="mtext-107 cl2 p-r-20">
-                                                        Ariana Grande
-                                                    </span>
+                                            @foreach ($product->feedBacks as $feedback)
+                                                <div class="size-207">
+                                                    <div class="flex-w flex-sb-m p-b-17">
+                                                        <span class="mtext-107 cl2 p-r-20">
+                                                            {{ auth()->user()->name }}
+                                                        </span>
 
-                                                    <span class="fs-18 cl11">
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star-half"></i>
-                                                    </span>
+                                                        <span class="fs-18 cl11">
+                                                            @if ($feedback['rate'] == 1)
+                                                                <i class="zmdi zmdi-star"></i>
+                                                            @elseif ($feedback['rate'] == 2)
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                            @elseif ($feedback['rate'] == 3)
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                            @elseif ($feedback['rate'] == 4)
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                            @elseif ($feedback['rate'] == 5)
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                            @endif
+                                                        </span>
+                                                    </div>
+
+                                                    <p class="stext-102 cl6">
+                                                        {{ $feedback->comment }}
+                                                    </p>
                                                 </div>
-
-                                                <p class="stext-102 cl6">
-                                                    Quod autem in homine praestantissimum atque optimum est, id deseruit.
-                                                    Apud ceteros autem philosophos
-                                                </p>
-                                            </div>
+                                            @endforeach
                                         </div>
 
-                                        <!-- Add review -->
-                                        <form class="w-full">
-                                            <h5 class="mtext-108 cl2 p-b-7">
-                                                Add a review
-                                            </h5>
+                                        @auth
+                                            <!-- Add review -->
+                                            <form class="w-full" method="POST" action="{{ route('feedbacks.store') }}">
+                                                @csrf
 
-                                            <p class="stext-102 cl6">
-                                                Your email address will not be published. Required fields are marked *
-                                            </p>
+                                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                                            <div class="flex-w flex-m p-t-50 p-b-23">
-                                                <span class="stext-102 cl3 m-r-16">
-                                                    Your Rating
-                                                </span>
+                                                <h5 class="mtext-108 cl2 p-b-7">
+                                                    Add a review
+                                                </h5>
 
-                                                <span class="wrap-rating fs-18 cl11 pointer">
-                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                    <input class="dis-none" type="number" name="rating">
-                                                </span>
-                                            </div>
+                                                <p class="stext-102 cl6">
+                                                    Your email address will not be published. Required fields are marked *
+                                                </p>
 
-                                            <div class="row p-b-25">
-                                                <div class="col-12 p-b-5">
-                                                    <label class="stext-102 cl3" for="review">Your review</label>
-                                                    <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
+                                                <div class="flex-w flex-m p-t-50 p-b-23">
+                                                    <span class="stext-102 cl3 m-r-16">
+                                                        Your Rating
+                                                    </span>
+
+                                                    <span class="wrap-rating fs-18 cl11 pointer">
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <input type="hidden" name="rate" value="0">
+                                                    </span>
                                                 </div>
 
-                                                <div class="col-sm-6 p-b-5">
-                                                    <label class="stext-102 cl3" for="name">Name</label>
-                                                    <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name"
-                                                        type="text" name="name">
+                                                <div class="row p-b-25">
+                                                    <div class="col-12 p-b-5">
+                                                        <label class="stext-102 cl3" for="review">Your review</label>
+                                                        <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" name="comment"></textarea>
+                                                    </div>
+
+                                                    <div class="col-sm-6 p-b-5">
+                                                        <label class="stext-102 cl3">Name</label>
+                                                        <input class="size-111 bor8 stext-102 cl2 p-lr-20" type="text"
+                                                            value="{{ auth()->user()->name }}">
+                                                    </div>
+
+                                                    <div class="col-sm-6 p-b-5">
+                                                        <label class="stext-102 cl3">Email</label>
+                                                        <input class="size-111 bor8 stext-102 cl2 p-lr-20" type="text"
+                                                            value="{{ auth()->user()->email }}">
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-sm-6 p-b-5">
-                                                    <label class="stext-102 cl3" for="email">Email</label>
-                                                    <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email"
-                                                        type="text" name="email">
-                                                </div>
-                                            </div>
+                                                <button
+                                                    class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+                                                    Submit
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form class="w-full" method="POST" action="">
+                                                @csrf
 
-                                            <button
+                                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                                                <h5 class="mtext-108 cl2 p-b-7">
+                                                    Add a review
+                                                </h5>
+
+                                                <p class="stext-102 cl6">
+                                                    Your email address will not be published. Required fields are marked *
+                                                </p>
+
+                                                <div class="flex-w flex-m p-t-50 p-b-23">
+                                                    <span class="stext-102 cl3 m-r-16">
+                                                        Your Rating
+                                                    </span>
+
+                                                    <span class="wrap-rating fs-18 cl11 pointer">
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                        <input type="hidden" value="0">
+                                                    </span>
+                                                </div>
+
+                                                <div class="row p-b-25">
+                                                    <div class="col-12 p-b-5">
+                                                        <label class="stext-102 cl3" for="review">Your review</label>
+                                                        <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"></textarea>
+                                                    </div>
+
+                                                    <div class="col-sm-6 p-b-5">
+                                                        <label class="stext-102 cl3">Name</label>
+                                                        <input class="size-111 bor8 stext-102 cl2 p-lr-20" type="text">
+                                                    </div>
+
+                                                    <div class="col-sm-6 p-b-5">
+                                                        <label class="stext-102 cl3">Email</label>
+                                                        <input class="size-111 bor8 stext-102 cl2 p-lr-20" type="text">
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                            <a href="{{ url('/loginPage') }}"
                                                 class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
                                                 Submit
-                                            </button>
-                                        </form>
+                                            </a>
+                                        @endauth
+
                                     </div>
                                 </div>
                             </div>
@@ -634,4 +710,8 @@
             </div>
         </div>
     </section>
+
+
+   
+
 @endsection

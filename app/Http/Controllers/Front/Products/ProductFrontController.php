@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front\Products;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductFeedback;
+use App\Models\User;
 
 class ProductFrontController extends Controller
 {

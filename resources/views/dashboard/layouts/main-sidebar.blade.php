@@ -4,7 +4,9 @@
     <a href="{{url('/dashboard/index')}}" class="brand-link">
       <img src="{{asset('admin_dashboard/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light"> AdminLTE</span>
+      <span class="brand-text font-weight-light"> 
+        لوحة تحكم المشرف
+      </span>
     </a>
 
     <!-- Sidebar -->

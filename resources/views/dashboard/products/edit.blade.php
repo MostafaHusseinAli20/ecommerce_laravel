@@ -75,15 +75,6 @@
                         </select>
                     </div>
 
-                    {{-- <div class="form-group">
-                      <label>المقاسات</label>
-                      <select name="sizes[]" multiple class="form-control select2" style="width: 100%;">
-                          @foreach (\App\Models\CategorySizes::query()->where('category_id', $product->category_id)->get() as $size)
-                              <option {{$product->sizes->contains($size) ? "selected": ""}} value="{{$size->id}}">{{$size->value}}</option>
-                          @endforeach
-                      </select>
-                  </div> --}}
-
                   <div class="form-check-group mb-3">
                     @foreach (\App\Models\CategorySizes::query()->where('category_id', $product->category_id)->get() as $size)
                       <div class="form-check mb-2">
@@ -124,9 +115,10 @@
                     <div class="row">
                       <label for="">صور اضافية</label>
                       <div class="col-12">
-                        <form action="{{ route('product_images.store') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('product_images.store') }}" enctype="multipart/form-data">
+                          @csrf
                           <input type="hidden" name="product_id" value="{{ $product->id }}">
-                          <input type="file" name="path" class="form-control">
+                          <input type="file" name="image" class="form-control">
                           <button type="submit" class="btn btn-success mt-2">اضافة</button>
                         </form>
                       </div>

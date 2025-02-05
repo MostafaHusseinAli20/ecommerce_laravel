@@ -7,6 +7,8 @@ use App\Http\Controllers\Front\Contact\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Home\HomeController;
 use App\Http\Controllers\Front\Orders\OrderFrontController;
+use App\Http\Controllers\Front\Payments\PaymentController;
+use App\Http\Controllers\Front\Products\ProductFeedbacks;
 use App\Http\Controllers\Front\Products\ProductFrontController;
 
 /*
@@ -31,7 +33,8 @@ Route::get('local', function () {
 
 Route::get('/category/{category}', [CategoryFrontController::class, 'show'])->name('front.category.show');
 Route::get('/cart', [CartController::class, 'index'])->name('front.cart.index');
-Route::post('/checkout', [OrderFrontController::class, 'store']);
+// Route::post('/checkout', [OrderFrontController::class, 'store']);
+Route::post('/charge', [PaymentController::class, 'charge']);
 
 # Contact Routes
 Route::view('contact', 'front.contact.index');
@@ -51,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart/{product_id}/q/{quantity}/store', [CartController::class, 'store'])->name('front.cart.store');
     Route::get('/cart/remove/{index}', [CartController::class, 'destroy'])->name('front.cart.destroy');
     Route::post('/cart/update', [CartController::class, 'update'])->name('front.cart.update');
+    Route::post('/add/feedback', [ProductFeedbacks::class, 'store'])->name('feedbacks.store');
 });
 
 Route::redirect('/dashboard', '/dashboard/index');

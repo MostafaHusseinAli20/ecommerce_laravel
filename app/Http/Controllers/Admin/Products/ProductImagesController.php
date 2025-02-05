@@ -14,13 +14,12 @@ class ProductImagesController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
-            "path"=> "required|image",
+            "image"=> "",
         ]);
 
-        $data = $request->except('_token','image');
-        $data['path'] = Storage::disk('public')->put('add_images_products',$request->file('image'));
+        $data = $request->except('_token', 'image');
+        $data['image'] = $request->file('image')->store('add_images_products', 'public');
 
         Product_image::create($data);
         return back();
@@ -29,7 +28,7 @@ class ProductImagesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         Product_image::find($id)->delete();
         return back();

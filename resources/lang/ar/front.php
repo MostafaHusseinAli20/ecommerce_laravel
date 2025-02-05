@@ -31,4 +31,5 @@ return [
         'closed' => 'طلب مغلق'
     ],
     'add_order' => 'تم اضافة طلب جديد',
+    'message_added_succssfuly'   => 'تم اضافة التعلق بنجاح'
 ];

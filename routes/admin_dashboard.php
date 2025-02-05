@@ -31,7 +31,7 @@ Route::middleware('admin')->group(function () {
     Route::resource('tags', TagController::class);
     Route::resource('products', ProductController::class);
     Route::resource('props', ProductPropsController::class);
-    Route::resource('product_images', ProductImagesController::class);
+    Route::resource('product_images', ProductImagesController::class)->only('store', 'destroy');
     Route::resource('sliders', SliderController::class);
     Route::resource('product_colors', ProductColorController::class);
     Route::resource('orders', OrderController::class)->only('index', 'show', 'update');

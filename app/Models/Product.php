@@ -41,4 +41,8 @@ class Product extends Model
     public function images(){
         return $this->hasMany(Product_image::class,'product_id','id');
     }
+
+    public function feedBacks(){
+        return $this->hasMany(ProductFeedback::class,'product_id','id');
+    }
 }
