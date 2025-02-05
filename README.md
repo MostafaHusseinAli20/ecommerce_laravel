@@ -44,9 +44,7 @@ php artisan serve
 ## Screenshots
 ![Alt text](public/screenshots/1.png)
 ![Alt text](public/screenshots/2.png)
-![Alt text](public/screenshots/3.png)
 ![Alt text](public/screenshots/4.png)
-![Alt text](public/screenshots/5.png)
 ![Alt text](public/screenshots/6.png)
 ![Alt text](public/screenshots/7.png)
 ![Alt text](public/screenshots/8.png)
